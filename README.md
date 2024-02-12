@@ -23,12 +23,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/ValentinoTriadi/Cyberpunk-2077-Breach-Protocol_Tucil-IF2211-23-24">
-    <img src="img/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-<h3 align="center">Valentino Chryslie Triadi</h3>
-
   <p align="center">
     An Cyberpunk 2077 Breach Protocol Solving Program 
     <br />
