@@ -7,18 +7,19 @@
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 
-from tkinter import Tk, Canvas, Label, Button, PhotoImage, Frame, Text, Image
+from tkinter import Tk, Canvas, Label, Button, PhotoImage, Frame, Text, Toplevel
 from tkinter.filedialog import askopenfile, asksaveasfile
-import data, os
+import data, os, sys
 from pathlib import Path
 
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(fr"{os.getcwd()}\Component\assets")
 
-
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+
+allRoots = []
 
 class ImageLoader:
     def __init__(self, wd) -> None:
@@ -30,6 +31,14 @@ class ImageLoader:
                 file=relative_to_assets("image_3.png"))
         self.input_image_3 = PhotoImage(
                 file=relative_to_assets("image_4.png"))
+        self.image_image_3 = PhotoImage(
+                file=relative_to_assets("image_3.png"))
+        self.image_image_4 = PhotoImage(
+                file=relative_to_assets("image_4.png"))
+        self.button_image_1 = PhotoImage(
+                file=relative_to_assets("button_1.png"))
+        self.button_image_2 = PhotoImage(
+                file=relative_to_assets("button_2.png"))
         self.entry_image_1 = PhotoImage(
                 file=relative_to_assets("entry_1.png"))
         self.entry_image_2 = PhotoImage(
@@ -46,29 +55,14 @@ class ImageLoader:
                 file=relative_to_assets("entry_1.png"))
         self.entry_image_7 = PhotoImage(
                 file=relative_to_assets("entry_1.png"))
-        self.image_image_3 = PhotoImage(
-                file=relative_to_assets("image_3.png"))
-        self.image_image_4 = PhotoImage(
-                file=relative_to_assets("image_4.png"))
-        self.button_image_1 = PhotoImage(
-                file=relative_to_assets("button_1.png"))
-        self.button_image_2 = PhotoImage(
-                file=relative_to_assets("button_2.png"))
 
-def UploadTXT(obj):
-    fileWindow(obj)
+def closeAllRoots():
+    global allRoots
+    print(allRoots)
+    for i in allRoots:
+        i.destroy()
 
-def main():
-    obj = data.INFO()
-
-    window = Tk()
-    window.title("Cyberpunk 2077 Breach Protocol")
-
-    window.geometry("1000x600")
-    window.configure(bg = "#FFFFFF")
-
-    img_loader = ImageLoader(window)
-
+def resetMain(window, img_loader, obj):
     canvas = Canvas(
         window,
         bg = "#FFFFFF",
@@ -128,7 +122,7 @@ def main():
         image=img_loader.button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: inputFromKeyboard(img_loader, window),
+        command=lambda: inputFromKeyboard(img_loader, window, obj),
         relief="flat"
     )
     button_2.place(
@@ -173,46 +167,31 @@ def main():
         fill="#FFFFFF",
         font=("Poppins Regular", 15 * -1)
     )
+
+def main():
+    global allRoots
+
+    obj = data.INFO()
+
+    window = Tk()
+    allRoots.append(window)
+
+    window.title("Cyberpunk 2077 Breach Protocol")
+
+    window.geometry("1000x600")
+    window.configure(bg = "#FFFFFF")
+
+    img_loader = ImageLoader(window)
+
+    resetMain(window, img_loader, obj)
+    
+    window.bind("<Escape>", lambda e: closeAllRoots())
+    window.bind("<F11>", lambda e: window.attributes("-fullscreen",
+                                                     not window.attributes("-fullscreen")))
+    window.protocol('WM_DELETE_WINDOW', closeAllRoots)  # window is your window window
+
     window.resizable(False, False)
     window.mainloop()
-
-
-
-# TODO: FILE UPLOAD WINDOW
-
-def getFileName(file_path):
-    return os.path.basename(file_path)
-
-def fileWindow(obj):
-    def open_file():
-        file_path = askopenfile(mode='r', filetypes=[("Text Files", "*.txt")])
-        if file_path is not None:
-            text = file_path.read()
-            Label(ws, text=f'File {getFileName(file_path.name)} Uploaded Successfully!', foreground='green').grid(row=4, columnspan=3, padx=10, pady=10)
-            f = open("input/input.txt", "w")
-            f.write(text)
-            f.close()
-            ws.destroy()
-            show(obj)
-            
-    ws = Tk()
-    ws.title('Input File Window')
-    ws.geometry('200x100') 
-        
-    UploadTXT = Label(
-        ws, 
-        text='Upload TXT file'
-        )
-    UploadTXT.grid(row=0, column=0, padx=10)
-
-    UploadTXTbtn = Button(
-        ws, 
-        text ='Choose File', 
-        command = lambda:open_file()
-        ) 
-    UploadTXTbtn.grid(row=0, column=1)
-
-    return True
 
 
 
@@ -254,8 +233,10 @@ def saveResult(res, matrix, time_executed):
     return True
 
 def solve(obj, info_window):
+    global allRoots
     res = obj.solve()
     ws = Tk()
+    allRoots.append(ws)
     ws.title('Solution Window')
     ws.geometry('1000x600') 
     
@@ -303,8 +284,6 @@ def solve(obj, info_window):
 
 
 
-
-
 # TODO: SHOW MATRIX AND SEQUENCE
 
 def displayMatrix(matrix, ws):
@@ -321,6 +300,7 @@ def displaySequence(sequence, ws):
     return True
 
 def show(obj):
+    global allRoots
     file_path = askopenfile(mode='r', filetypes=[("Text Files", "*.txt")])
     text = file_path.read()
     f = open("input/input.txt", "w")
@@ -330,6 +310,7 @@ def show(obj):
     obj.print()
 
     ws = Tk()
+    allRoots.append(ws)
     ws.title('Information Window')
     ws.geometry('1000x600') 
     
@@ -361,7 +342,9 @@ def show(obj):
     ws.mainloop()
 
 def showInput(obj):
+    global allRoots
     ws = Tk()
+    allRoots.append(ws)
     ws.title('Information Window')
     ws.geometry('1000x600') 
     
@@ -402,7 +385,7 @@ def solveInput(buffer_size, sequence_count, max_sequence_length, matrix_width, m
     showInput(obj)
     return True
 
-def inputFromKeyboard(img_loader, wd):
+def inputFromKeyboard(img_loader, wd, obj):
     window = wd
 
     window.geometry("1000x600")
@@ -536,6 +519,20 @@ def inputFromKeyboard(img_loader, wd):
     )
     solve.place(
         x=450.0,
+        y=496.0,
+        width=100.0,
+        height=40.0
+    )
+
+    back = Button(
+        borderwidth=0,
+        highlightthickness=0,
+        relief="flat",
+        text="Back",
+        command=lambda: resetMain(wd, img_loader, obj),
+    )
+    back.place(
+        x=50.0,
         y=496.0,
         width=100.0,
         height=40.0

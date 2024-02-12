@@ -52,21 +52,23 @@ class SOLVE:
 
     def changeTokenToSearch(self):
         curr_token = self.getCurrentPositionToken()
+        temp = []
         for i in range(self.number_of_sequences):
             if curr_token == self.token_to_search[i]:
                 if (self.token_to_search_index[i] < len(self.sequences[i][0])-1):
                     self.token_to_search_index[i] += 1
                 else:
                     self.curr_score += self.sequences[i][1]
-                    self.token_to_search_index[i] = 0
-                    # self.token_to_search_index.pop(i)
-                    # self.token_to_search.pop(i)
-                    # self.sequences.pop(i)
-                    # self.number_of_sequences -= 1
+                    temp.append(i)
                     self.result.append([self.copyList(self.buffer), self.curr_score])
             else:
                 self.token_to_search_index[i] = 0
             self.token_to_search[i] = self.sequences[i][0][self.token_to_search_index[i]]
+        for i in temp:
+            self.token_to_search_index.pop(i)
+            self.token_to_search.pop(i)
+            self.sequences.pop(i)
+            self.number_of_sequences -= 1
                 
     def isDone(self):
         return self.getCurrentBufferNumber() >= self.buffer_size
