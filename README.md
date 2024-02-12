@@ -27,10 +27,10 @@
     <img src="img/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">GoMilk</h3>
+<h3 align="center">Valentino Chryslie Triadi</h3>
 
   <p align="center">
-    An Image retrieval website with CONTENT-BASED INFORMATION RETRIEVAL system 
+    An Cyberpunk 2077 Breach Protocol Solving Program 
     <br />
     <a href="https://github.com/ValentinoTriadi/Cyberpunk-2077-Breach-Protocol_Tucil-IF2211-23-24"><strong>Explore the docs »</strong></a>
     ·
