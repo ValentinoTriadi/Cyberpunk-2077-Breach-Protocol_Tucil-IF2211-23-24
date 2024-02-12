@@ -8,7 +8,7 @@
 # Explicit imports to satisfy Flake8
 
 from tkinter import Tk, Canvas, Label, Button, PhotoImage, Frame, Text, Image
-from tkinter.filedialog import askopenfile 
+from tkinter.filedialog import askopenfile, asksaveasfile
 import data, os
 from pathlib import Path
 
@@ -113,7 +113,7 @@ def main():
         image=img_loader.button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: UploadTXT(obj),
+        command=lambda: show(obj),
         relief="flat"
     )
     button_1.place(
@@ -244,7 +244,7 @@ def resetAll(obj, ws, info_window):
     return True
 
 def saveResult(res, matrix, time_executed):
-    f = open("output/output.txt", "w")
+    f = asksaveasfile(defaultextension=".txt", filetypes=[("Text Files", "*.txt")])
     f.write(str(res[0][1])+"\n")
     f.write(getParsedResult(res[0][0], matrix, " ") + "\n")
     for i in range(getLength(res[0][0])):
@@ -321,6 +321,11 @@ def displaySequence(sequence, ws):
     return True
 
 def show(obj):
+    file_path = askopenfile(mode='r', filetypes=[("Text Files", "*.txt")])
+    text = file_path.read()
+    f = open("input/input.txt", "w")
+    f.write(text)
+    f.close()
     obj.parse("input/input.txt")
     obj.print()
 
