@@ -46,13 +46,6 @@
         <li><a href="#features">Built With</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#Project-Status">Project Status</a></li>
     <li><a href="#Room-for-Improvement">Room for Improvement</a></li>
