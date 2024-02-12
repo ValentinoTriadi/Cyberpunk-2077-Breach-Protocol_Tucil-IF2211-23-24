@@ -243,7 +243,7 @@ def saveResult(res, matrix, time_executed):
 def solve(obj, info_window):
     global allRoots
     res = obj.solve()
-    print(res)
+    # print(res)
     ws = Tk()
     allRoots.append(ws)
     ws.title('Solution Window')

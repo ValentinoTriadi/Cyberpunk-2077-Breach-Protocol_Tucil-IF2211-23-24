@@ -104,6 +104,11 @@ Cyberpunk 2077 Breach Protocol Solution Finder using Bruteforce Algorithm
    python main.py
    ```
 
+   OR
+
+1. Open bin/dist in file directory
+2. double click main
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
