@@ -1,11 +1,8 @@
-
-
+# GUI version
 def startGUI():
     import GUI as G
     G.main()
     
-
-
 # CLI version
 def start():
     import data

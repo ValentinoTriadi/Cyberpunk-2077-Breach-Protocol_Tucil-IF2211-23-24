@@ -1,5 +1,5 @@
-import random, os
-import solve, time
+import random, os, time
+import solve
 
 class INFO:
     def __init__(self):

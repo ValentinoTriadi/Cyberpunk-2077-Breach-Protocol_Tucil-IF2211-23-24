@@ -1,4 +1,3 @@
-
 class SOLVE:
     def __init__(self, matrix, sequences, buffer_size) -> None:
         self.buffer_size = buffer_size
@@ -36,12 +35,6 @@ class SOLVE:
         temp = 0
         while temp < self.buffer_size and self.buffer[temp] != ():
             temp += 1
-        return temp
-    
-    def getCurrentTokenNumber(self):
-        temp = self.buffer_size-1
-        while temp >= 0 and self.acc_token[temp] != []:
-            temp -= 1
         return temp
     
     def changeDirection(self):
