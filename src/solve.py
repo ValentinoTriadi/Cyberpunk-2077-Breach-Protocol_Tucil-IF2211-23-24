@@ -64,10 +64,13 @@ class SOLVE:
             else:
                 self.token_to_search_index[i] = 0
             self.token_to_search[i] = self.sequences[i][0][self.token_to_search_index[i]]
-        for i in temp:
-            self.token_to_search_index.pop(i)
-            self.token_to_search.pop(i)
-            self.sequences.pop(i)
+        for i in range(len(temp)):
+            for j in range(len(temp)):
+                if (i!=j):
+                    temp[j] -= 1
+            self.token_to_search_index.pop(temp[i])
+            self.token_to_search.pop(temp[i])
+            self.sequences.pop(temp[i])
             self.number_of_sequences -= 1
                 
     def isDone(self):
