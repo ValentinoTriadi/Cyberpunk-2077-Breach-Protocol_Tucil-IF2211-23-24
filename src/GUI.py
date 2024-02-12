@@ -9,7 +9,7 @@
 
 from tkinter import Tk, Canvas, Label, Button, PhotoImage, Frame, Text, Image
 from tkinter.filedialog import askopenfile 
-import data, os, InputGUI
+import data, os
 from pathlib import Path
 
 
@@ -224,11 +224,11 @@ def getLength(l):
             return i
     return len(l)
 
-def getParsedResult(arr, matrix):
+def getParsedResult(arr, matrix, conn):
     res = ""
     for i in range(getLength(arr)):
         if (i != 0):
-            res += (" → ")
+            res += (conn)
         res += (matrix[arr[i][0]][arr[i][1]])
     return res
 
@@ -241,6 +241,16 @@ def resetAll(obj, ws, info_window):
     obj.reset()
     info_window.destroy()
     ws.destroy()
+    return True
+
+def saveResult(res, matrix, time_executed):
+    f = open("output/output.txt", "w")
+    f.write(str(res[0][1])+"\n")
+    f.write(getParsedResult(res[0][0], matrix, " ") + "\n")
+    for i in range(getLength(res[0][0])):
+        f.write(str(res[0][0][i][1] + 1) + ',' + str(res[0][0][i][0] + 1) + "\n")
+    f.write("\n" + str(round(time_executed*1000)) + " ms")
+    f.close()
     return True
 
 def solve(obj, info_window):
@@ -265,7 +275,7 @@ def solve(obj, info_window):
 
     Label(first_frame, text=f"Maximum Score: {res[0][1]}").grid(row=1, column=0, padx=10, pady=10, sticky="NW")
 
-    Label(first_frame, text="Buffer: " + getParsedResult(res[0][0], obj.matrix)).grid(row=2, column=0, padx=10, pady=10, sticky="NW")
+    Label(first_frame, text="Buffer: " + getParsedResult(res[0][0], obj.matrix, " → ")).grid(row=2, column=0, padx=10, pady=10, sticky="NW")
 
     Label(second_frame, text="Coordinate:").grid(row=0, column=0, padx=10, pady=10, sticky="NW")
 
@@ -276,6 +286,7 @@ def solve(obj, info_window):
         borderwidth=0,
         highlightthickness=0,
         text= "Save Result",
+        command=lambda: saveResult(res, obj.matrix, obj.time_executed),
         width=30,
     ).grid(row=0, column=0, padx=10, pady=10, sticky="N" + "E" + "W" + "S")
 
