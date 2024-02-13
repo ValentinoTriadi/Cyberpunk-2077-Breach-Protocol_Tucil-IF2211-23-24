@@ -24,7 +24,7 @@
 <br />
 <div align="center">
   <p align="center">
-    An Cyberpunk 2077 Breach Protocol Solving Program 
+    A Cyberpunk 2077 Breach Protocol Solving Program 
     <br />
     <a href="https://github.com/ValentinoTriadi/Cyberpunk-2077-Breach-Protocol_Tucil-IF2211-23-24"><strong>Explore the docs »</strong></a>
     ·
@@ -106,8 +106,8 @@ Cyberpunk 2077 Breach Protocol Solution Finder using Bruteforce Algorithm
 
    OR
 
-1. Open bin/dist in file directory
-2. double click main
+* Open bin/dist in file directory
+* Double click `main` to open the executable file
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
